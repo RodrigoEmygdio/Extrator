@@ -11,6 +11,7 @@ import java.net.URI;
 import java.nio.file.Paths;
 import java.util.Random;
 import java.util.function.Function;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +19,7 @@ public class Main {
 
     private  static String diretorioSaida;
     private static String nomeBaseArquivo;
+    private Logger logger = Logger.getLogger(Main.class.getCanonicalName());
 
     private static Function<String, String> nomeArquivoSaida = (conteudo)->{
 
@@ -49,7 +51,7 @@ public class Main {
     private static void salvaArquivos(String conteudo) {
         URI diretorioNomeArquivo = Paths.get(getDiretorioSaida(), getNomeArquivoSaida().apply(conteudo)).toUri();
         try {
-            File arquivo = new File(String.valueOf(diretorioNomeArquivo));
+            File arquivo = new File(diretorioNomeArquivo.getPath());
             arquivo.createNewFile();
             FileWriter writer = new FileWriter(arquivo);
             writer.write(conteudo);
